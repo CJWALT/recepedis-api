@@ -3,7 +3,7 @@ import FormData from 'form-data'
 import Mailgun from 'mailgun.js'
 
   const cors = Cors({
-    methods: ['POST', 'GET', 'HEAD'],
+    methods: ['POST', 'GET', 'HEAD','OPTIONS'],
     origin:'*'
   })
 
@@ -32,25 +32,20 @@ export default async function handler(req, res) {
   const mg = mailgun.client({username: 'api', key: API_KEY});
 
   const {name, email, message} = req.body;
-  // console.log('Data', req.body)
-  // console.log('headerReq', req.headers)
-  console.log(name)
-  
+   
 
   const messageData = { 
     from: "Contact Form <mailgun@sandbox0aaf52a76f65416d88df30a59858c9ee.mailgun.org>",
     to: 'oyedelee22@gmail.com',
     subject: 'New Contact Form',
     text:`Hello, 
-    
       You have a new message from ${name} ${email}, 
-      ${message}  `
-      
+      ${message}`      
   }
 
        try{ 
         const emailRes = await mg.messages.create(DOMAIN, messageData)
-        // console.log(emailRes)
+        
       }
 
       catch(err){ 
